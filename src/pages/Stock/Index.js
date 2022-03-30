@@ -107,7 +107,7 @@ const Stock = () => {
                    
                     </div>
                   </div>
-                  <div className="table">
+                  <div className="table-responsive ">
                     <table className="table table-sm table-hover table-nowrap card-table">
                       <thead>
                         <tr>

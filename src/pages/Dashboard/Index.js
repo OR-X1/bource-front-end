@@ -65,7 +65,7 @@ const Dashboard = () => {
                    
                     </div> 
                   </div>
-                  <div class="table">
+                  <div class="table-responsive ">
                     <table class="table table-sm table-hover table-nowrap card-table">
                       <thead>
                         <tr>

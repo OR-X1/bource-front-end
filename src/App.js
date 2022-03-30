@@ -25,8 +25,8 @@ function App() {
       <div className="h-screen">
         <Routes>
           {/* <Route  path="/"                                  element={<ProtectedRouteAdmin><DashAdmin/></ProtectedRouteAdmin>}/> */}
-          <Route  path="/"                                  element={<Dashboard/>}/>
-          <Route  path="/stock"                                  element={<Stock/>}/>
+          <Route  path="/"                                  element={<Stock/>}/>
+          <Route  path="/stock"                                  element={<Dashboard/>}/>
           <Route  path="/stock/:symbole"                                  element={<StockItem/>}/>
 
 
