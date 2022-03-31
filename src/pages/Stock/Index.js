@@ -165,7 +165,7 @@ const Stock = () => {
 
                             <div className="avatar avatar-xs align-middle me-2">
                               <img className="avatar-img rounded-circle" src={item.logo} alt="..." />
-                            </div> <Link to={`/stock/${item.symbole}`} className="item-name text-reset">{item.name}</Link>
+                            </div> <Link to={`/${item.symbole}`} className="item-name text-reset">{item.name}</Link>
 
                           </td>
                           <td className="text-center">

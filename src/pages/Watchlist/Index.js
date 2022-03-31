@@ -62,49 +62,49 @@ const Watchlist = () => {
     }
 
 
-    const [title, setTitle] = useState([]);
-    const [description, setDescription] = useState([]);
-    const [note, setNote] = useState([]);
+      const [title, setTitle] = useState([]);
+      const [description, setDescription] = useState([]);
+      const [note, setNote] = useState([]);
 
-    const [isloadingsubmit, setIsLoadingsubmit] = useState(false);
+      const [isloadingsubmit, setIsLoadingsubmit] = useState(false);
 
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        setIsLoadingsubmit(true);
+      const handleSubmit = e => {
+          e.preventDefault();
+          setIsLoadingsubmit(true);
 
-        const form_data = {
-          title: title,
-            description: description,
-            note: note,
-            user_id : 2
-            
-          }
-        
-        console.log(form_data);
-        // setTimeout(() => {
-          
-        axios.post('https://bourse.toolkech.com/api/watchlist',form_data
-            ).then(response => {
-                // console.log(response);
-                if(response){
-                    console.log('good')
-                        setIsLoadingsubmit(false);
-                        // fetchDataWatchList()
-                        console.log(response.watchlist);
-                }else{
-                    setIsLoadingsubmit(false);
-                }
-                        
-            }).catch(error =>{
-                
-                
-                console.log("error : "+error);
+          const form_data = {
+            title: title,
+              description: description,
+              note: note,
+              user_id : 2
+              
             }
-            )
-        // }, 1000);
+          
+          console.log(form_data);
+          // setTimeout(() => {
+            
+          axios.post('https://bourse.toolkech.com/api/watchlist',form_data
+              ).then(response => {
+                  // console.log(response);
+                  if(response){
+                      console.log('good')
+                          setIsLoadingsubmit(false);
+                          // fetchDataWatchList()
+                          console.log(response.watchlist);
+                  }else{
+                      setIsLoadingsubmit(false);
+                  }
+                          
+              }).catch(error =>{
+                  
+                  
+                  console.log("error : "+error);
+              }
+              )
+          // }, 1000);
 
-    }
+      }
     
    
 

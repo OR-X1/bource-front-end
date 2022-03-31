@@ -36,7 +36,7 @@ const SideBar = () => {
             </li>
             <li className="nav-item">
               <Link to="/" className="nav-link text-secondary ">
-                <i className="fe fe-grid"></i> Dashboard
+                <i className="fe fe-trending-up"></i> Stock
               </Link>
             </li>
 
@@ -47,13 +47,13 @@ const SideBar = () => {
     
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/stock" className="nav-link text-secondary active" href="widgets.html">
-                <i className="fe fe-activity"></i> Stocks
+              <Link to="/stockmanager" className="nav-link text-secondary active" href="widgets.html">
+                <i className="fe fe-briefcase"></i> Stock Manager
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/watchlist" className="nav-link text-secondary" href="widgets.html">
-                <i className="fe fe-activity"></i> Watchlist
+                <i className="fe fe-eye"></i> Watchlist
               </Link>
             </li>
 
@@ -67,11 +67,11 @@ const SideBar = () => {
                 <i className="fe fe-settings"></i> Parametre
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link text-secondary " href="widgets.html">
                 <i className="fe fe-more-horizontal"></i> More
               </a>
-            </li>
+            </li> */}
 
           </ul>
     

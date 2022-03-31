@@ -25,7 +25,7 @@ const DataWatchlist = (props) => {
 
                             <div className="avatar avatar-xs align-middle me-2">
                               <img className="avatar-img rounded-circle" src={item.logo} alt="..." />
-                            </div> <Link className="item-name text-reset"  to={`/stock/${item.symbole}`} >{item.name}</Link>
+                            </div> <Link className="item-name text-reset"  to={`/${item.symbole}`} >{item.name}</Link>
 
                           </td>
                           <td className="text-center">

@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard/Index";
 import NotFound from "./pages/NotFound/NotFound";
 import Watchlist from "./pages/Watchlist/Index";
 import StockItem from "./pages/StockItem/Index";
+import StockManager from "./pages/StockManager/Index";
 // import DataWatchlist from "./components/DataWatchlist";
 
 // require('dotenv').config()
@@ -26,8 +27,11 @@ function App() {
         <Routes>
           {/* <Route  path="/"                                  element={<ProtectedRouteAdmin><DashAdmin/></ProtectedRouteAdmin>}/> */}
           <Route  path="/"                                  element={<Stock/>}/>
+          <Route  path="/:symbole"                                  element={<StockItem/>}/>
+
           <Route  path="/stock"                                  element={<Dashboard/>}/>
-          <Route  path="/stock/:symbole"                                  element={<StockItem/>}/>
+          
+          <Route  path="/stockmanager"                                  element={<StockManager/>}/>
 
 
           <Route  path="/watchlist"                                  element={<Watchlist/>}/>
