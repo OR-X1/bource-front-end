@@ -72,7 +72,7 @@ const StockItem = () => {
                     console.log('good')
                         setIsLoadingsubmit(false);
                         console.log(response.data.stockmanager);
-                        navigate('/stockmanager');
+                        // navigate('/stockmanager');
                         
                 }else{
                     setIsLoadingsubmit(false);

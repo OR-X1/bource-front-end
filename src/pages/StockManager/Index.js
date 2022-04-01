@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import SideBar from "../../layouts/SideBar";
 
@@ -31,7 +32,11 @@ const StockManager = () => {
             
             setDatas(varr);
             setIsLoading(false);
-            console.log(varr);
+            console.log(varr[0].created_at);
+            //console.log(format(varr[0].created_at, 'yyyy/MM/dd kk:mm:ss'));
+            console.log(format(varr[0].created_at, 'yyyy-MM-dd'))
+
+
         }).catch(err=>{
             setIsLoading(false);
             console.log('faild to fetch');
@@ -71,6 +76,7 @@ const StockManager = () => {
                         // fetchDataWatchList()
                         fetchData();
                         console.log(response.data.stockmanager);
+
                 }else{
                     setIsLoadingsubmit(false);
                 }
@@ -252,7 +258,7 @@ const StockManager = () => {
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.created_at}</span>
+                            <span className="item-location">{item.created_at.substring(0,10)}</span>
 
                           </td>
                           <td className="text-center">
@@ -267,22 +273,22 @@ const StockManager = () => {
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.open}</span>
+                            <span className="item-location">{item.size * item.open}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.open}</span>
+                            <span className="item-location"></span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.open}</span>
+                            <span className="item-location"></span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.open}</span>
+                            <span className="item-location">{item.size * item.open}</span>
 
                           </td>
                         </tr>
