@@ -91,8 +91,8 @@ const StockManager = () => {
 
     }
 
-    const handleCloseAction = (id) => {
-
+    const handleCloseAction = (e, id) => {
+      e.preventDefault();
       setIsLoadingsubmit(true);
 
       const form_data = {
@@ -347,7 +347,7 @@ const StockManager = () => {
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
 
-                                    <form onSubmit={()=>handleCloseAction(item.id)}>
+                                    <form onSubmit={(e)=>handleCloseAction(e, item.id)}>
 
                                   <div className="modal-body">
                                       <div className="mb-3">
