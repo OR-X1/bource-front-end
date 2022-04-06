@@ -16,6 +16,7 @@ const StockManager = () => {
 
     const [data, setDatas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingClose, setIsLoadingClose] = useState(true);
 
     
     useEffect( () => {
@@ -32,9 +33,7 @@ const StockManager = () => {
             
             setDatas(varr);
             setIsLoading(false);
-            console.log(varr[0].created_at);
-            //console.log(format(varr[0].created_at, 'yyyy/MM/dd kk:mm:ss'));
-            console.log(format(varr[0].created_at, 'yyyy-MM-dd'))
+            console.log(varr);
 
 
         }).catch(err=>{
@@ -46,10 +45,12 @@ const StockManager = () => {
     };
 
     
+    const [symboleID, setSymboleId] = useState("");
     const [symbole, setSymbole] = useState([]);
     const [operation, setOperation] = useState([]);
     const [size, setSize] = useState([]);
     const [open, setOpen] = useState([]);
+    const [close, setClose] = useState([]);
 
     const [isloadingsubmit, setIsLoadingsubmit] = useState(false);
 
@@ -68,7 +69,7 @@ const StockManager = () => {
         
         console.log(form_data);
           
-        axios.post('https://bourse.toolkech.com/api/stockmanager',form_data
+        axios.post('https://bourse.toolkech.com/api/stockmanager', form_data
             ).then(response => {
                 if(response){
                     console.log('good')
@@ -89,6 +90,40 @@ const StockManager = () => {
             )
 
     }
+
+    const handleCloseAction = (id) => {
+
+      setIsLoadingsubmit(true);
+
+      const form_data = {
+        close: close,
+          }
+      
+      console.log(form_data);
+      console.log(" id : "+id +" close : " + close);
+        
+      axios.put(`https://bourse.toolkech.com/api/stockmanageraddclose/${id}`,form_data
+          ).then(response => {
+              if(response){
+                  console.log('good')
+                      setIsLoadingsubmit(false);
+                      // fetchDataWatchList()
+                      fetchData();
+                      //console.log(response.data.stockmanager);
+
+              }else{
+                  setIsLoadingsubmit(false);
+                  console.log("update failed !!");
+              }
+                      
+          }).catch(error =>{
+              
+              
+              console.log("error : "+error);
+          }
+          )
+
+  }
 
     return (
 <div className="flex h-full">
@@ -118,44 +153,44 @@ const StockManager = () => {
                       Add new Operation
                     </p>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title" id="exampleModalLabel">Create new watchlist</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h4 className="modal-title" id="exampleModalLabel">Create new watchlist</h4>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
 
                             <form onSubmit={handleSubmit}>
 
-                          <div class="modal-body">
-                              <div class="mb-3">
-                                <label for="symbole" class="col-form-label">Symbole:</label>
-                                <input type="text" class="form-control"  value={symbole} onChange={e => setSymbole(e.target.value)} id="symbole"/>
-                              </div>
-                              <div class="mb-3">
-                                <label for="operation" class="col-form-label">Operation:</label>
-                                <select class="form-select mb-3" data-choices value={operation} onChange={e => setOperation(e.target.value)}>
-                                  <option disabled>Chose your operation</option>
-                                  <option>Sell</option>
-                                  <option>Buy</option>
-                                </select>
-                              </div>
-                              <div class="mb-3">
-                                <label for="size" class="col-form-label">Size:</label>
-                                <input type="text" class="form-control"  value={size} onChange={e => setSize(e.target.value)} id="size"/>
-                              </div>
-                              <div class="mb-3">
-                                <label for="open" class="col-form-label">Open:</label>
-                                <input type="text" class="form-control"  value={open} onChange={e => setOpen(e.target.value)} id="open"/>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            {/* <button type="submit" class="btn btn-primary">Save</button> */}
-                            <input type="submit" value={isloadingsubmit ? 'loading...' : 'Submit'} data-bs-dismiss="modal" disabled={isloadingsubmit} className="btn btn-primary"  />
+                                <div className="modal-body">
+                                    <div className="mb-3">
+                                      <label for="symbole" className="col-form-label">Symbole:</label>
+                                      <input type="text" className="form-control"  value={symbole} onChange={e => setSymbole(e.target.value)} id="symbole"/>
+                                    </div>
+                                    <div className="mb-3">
+                                      <label for="operation" className="col-form-label">Operation:</label>
+                                      <select className="form-select mb-3" data-choices value={operation} onChange={e => setOperation(e.target.value)}>
+                                        <option disabled>Chose your operation</option>
+                                        <option>Sell</option>
+                                        <option>Buy</option>
+                                      </select>
+                                    </div>
+                                    <div className="mb-3">
+                                      <label for="size" className="col-form-label">Size:</label>
+                                      <input type="text" className="form-control"  value={size} onChange={e => setSize(e.target.value)} id="size"/>
+                                    </div>
+                                    <div className="mb-3">
+                                      <label for="open" className="col-form-label">Open:</label>
+                                      <input type="text" className="form-control"  value={open} onChange={e => setOpen(e.target.value)} id="open"/>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  {/* <button type="submit" className="btn btn-primary">Save</button> */}
+                                  <input type="submit" value={isloadingsubmit ? 'loading...' : 'Submit'} data-bs-dismiss="modal" disabled={isloadingsubmit} className="btn btn-primary"  />
 
-                          </div>
+                                </div>
 
                             </form>
                         </div>
@@ -191,7 +226,7 @@ const StockManager = () => {
                    
                     </div>
                   </div>
-                  <div className="table-responsive ">
+                  <div className="table ">
                     <table className="table table-sm table-hover table-nowrap card-table">
                       <thead>
                         <tr>
@@ -236,7 +271,7 @@ const StockManager = () => {
       
                       {isLoading && <tr className="text-center"><td colspan="11" className="py-5"><p ><Spinner animation="border" /></p></td></tr>}
                     {data.map((item)=>(
-                        <tr key={item._id}>
+                        <tr key={item.id}>
                           <td>
 
                             <div className="form-check">
@@ -273,22 +308,64 @@ const StockManager = () => {
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.size * item.open}</span>
+                            <span className="item-location">{item.amount_open}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location"></span>
+                            <span className="item-location">{item.close}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location"></span>
+                            <span className="item-location">{item.amount_close}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.size * item.open}</span>
+                            <span className="item-location">{item.pnl}</span>
+
+                          </td>
+                          <td className="text-end">
+
+                            <div className="dropdown">
+                              <a className="dropdown-ellipses dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i className="fe fe-more-horizontal"></i>
+                              </a>
+                              <div className="dropdown-menu dropdown-menu-end">
+                                <p className="dropdown-item"  data-bs-toggle="modal" data-bs-target={`#exampleModalClose${item.id}`} data-bs-whatever="@fat">
+                                  Add close action
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="modal fade" id={`exampleModalClose${item.id}`} tabindex="-1" aria-labelledby={`exampleModalLabelClose${item.id}`} aria-hidden="true">
+                              <div className="modal-dialog">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h4 className="modal-title" id={`exampleModalLabelClose${item.id}`}>Add close action</h4>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+
+                                    <form onSubmit={()=>handleCloseAction(item.id)}>
+
+                                  <div className="modal-body">
+                                      <div className="mb-3">
+                                        <label  className="col-form-label">Close:</label>
+                                        <input type="text" className="form-control"  value={close} onChange={e => setClose(e.target.value)} />
+                                      </div>
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    {/* <input type="submit" value={isloadingsubmit ? 'loading...' : 'Submit'} data-bs-dismiss="modal" disabled={isloadingsubmit} className="btn btn-primary"  /> */}
+                                    <input type="submit" value='Submit' data-bs-dismiss="modal"  className="btn btn-primary"  />
+
+                                  </div>
+
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
 
                           </td>
                         </tr>
