@@ -323,7 +323,8 @@ const StockManager = () => {
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.pnl}</span>
+                            {/* <span className={`item-location ${item.pnl > 0 ? "text-succes" : "text-danger"}`}>{item.pnl}</span> */}
+                            <span className={`item-location ${item.pnl > 0 ? 'text-success' : 'text-danger'}`}>{item.pnl}</span>
 
                           </td>
                           <td className="text-end">
@@ -333,9 +334,9 @@ const StockManager = () => {
                                 <i className="fe fe-more-horizontal"></i>
                               </a>
                               <div className="dropdown-menu dropdown-menu-end">
-                                <p className="dropdown-item"  data-bs-toggle="modal" data-bs-target={`#exampleModalClose${item.id}`} data-bs-whatever="@fat">
+                                <button className="dropdown-item"  data-bs-toggle="modal" data-bs-target={`#exampleModalClose${item.id}`} data-bs-whatever="@fat">
                                   Add close action
-                                </p>
+                                </button>
                               </div>
                             </div>
 

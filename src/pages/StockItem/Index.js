@@ -110,7 +110,7 @@ const StockItem = () => {
 
       <div className="container-fluid">
         <div className="row justify-content-center">
-          <div className="col-12">
+          <div className="col-11 container">
 
             <div className="header">
               <div className="header-body border-0">
@@ -212,124 +212,119 @@ const StockItem = () => {
                     </div>
                   </div>
                   <div class="row my-5">
-          <div class="col-12 col-lg-3 col-xl-3">
+                    <div className="col-4 px-3">
+                        <div class="col-12">
 
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
+                        <div class="card py-3">
+                          <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                              <div class="col">
 
-                    <h3 class="text-uppercase text-muted mb-2">
-                    {data.symbole}
-                    </h3>
+                                <h3 class="text-uppercase text-muted mb-2">
+                                {data.symbole}
+                                </h3>
 
-                    <span class="h1 mb-0">
-                      ${data.price}
-                    </span>
+                                <span class="h1 mb-0">
+                                  ${data.price}
+                                </span>
 
-                    <span class="badge bg-success-soft mt-n1">
-                      +3.5%
-                    </span>
+                                <span class="badge bg-success-soft mt-n1">
+                                  +3.5%
+                                </span>
 
+                              </div>
+                              <div class="col-auto">
+
+                                {/* <span class="h2 fe fe-dollar-sign text-muted mb-0"></span> */}
+
+                              </div>
+                            </div> 
+
+                          </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    <div className="col-8  px-4">
+                      <div className="card">
+                      <div className="row ">
+                      <div class="col-12 col-lg-4 col-xl-4 ">
+
+                          <div class=" py-3">
+                            <div class="card-body">
+                              <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                  <h6 class="text-uppercase text-muted mb-2">
+                                  Pre-Market
+                                  </h6>
+
+                                  <span class="h1 mb-0">
+                                  ${data.preMarket}
+                                  </span>
+
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+
+                          </div>
+                          <div class="col-12 col-lg-4 col-xl-4">
+
+                          <div class=" py-3">
+                            <div class="card-body">
+                              <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                  <h6 class="text-uppercase text-muted mb-2">
+                                  Previous close
+                                  </h6>
+
+                                  <span class="h1 mb-0">
+                                    ${data.close}
+                                  </span>
+
+                                  <span class="badge bg-success-soft mt-n1">
+                                    +3.5%
+                                  </span>
+
+                                </div>
+                              </div> 
+
+                            </div>
+                          </div>
+
+                          </div>
+                          <div class="col-12 col-lg-4 col-xl-4">
+
+                            <div class=" py-3">
+                              <div class="card-body">
+                                <div class="row align-items-center gx-0">
+                                  <div class="col">
+
+                                    <h6 class="text-uppercase text-muted mb-2">
+                                      Close
+                                    </h6>
+
+                                    <span class="h1 mb-0">
+                                      ${data.close}
+                                    </span>
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                      </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
                   </div>
-                  <div class="col-auto">
-
-                    {/* <span class="h2 fe fe-dollar-sign text-muted mb-0"></span> */}
-
-                  </div>
-                </div> 
-
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-3 col-xl-3">
-
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
-
-                    <h6 class="text-uppercase text-muted mb-2">
-                    Pre-Market
-                    </h6>
-
-                    <span class="h1 mb-0">
-                    ${data.preMarket}
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-3 col-xl-3">
-
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
-
-                    <h6 class="text-uppercase text-muted mb-2">
-                    Previous close
-                    </h6>
-
-                    <span class="h1 mb-0">
-                      ${data.close}
-                    </span>
-
-                    <span class="badge bg-success-soft mt-n1">
-                      +3.5%
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                  </div>
-                </div> 
-
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-3 col-xl-3">
-
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
-
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Close
-                    </h6>
-
-                    <span class="h1 mb-0">
-                      ${data.close}
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-          
-        </div>
                 {/* <div className="card" data-list='{"valueNames": ["item-company", "item-price", "item-pre-market", "item-day", "item-week", "item-trimister", "item-year-high", "item-year-low"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="companiesList">
                   <div className="card-header">
                     <div className="row align-items-center">
