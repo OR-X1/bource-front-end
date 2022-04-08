@@ -4,7 +4,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Link, Navigate, Redirect, useNavigate, useParams } from 'react-router-dom';
- 
+import { AdvancedChart } from "react-tradingview-embed";
+
+import {Helmet} from "react-helmet";
+
 import SideBar from "../../layouts/SideBar";
 
 
@@ -16,7 +19,7 @@ const StockItem = () => {
     console.log(symbole);
     // const  [data,setData] = useState(''); 
     // const [isloading, setIsLoading] = useState(true);
-
+    const [symboleId,setSymboleId] = useState(symbole);
     const [data, setDatas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -324,6 +327,9 @@ const StockItem = () => {
                     
                     
                     
+                  </div>
+                  <div className="mb-5">
+                  <AdvancedChart widgetProps={{"theme": "light", "symbol": `${symboleId}`}} />
                   </div>
                 {/* <div className="card" data-list='{"valueNames": ["item-company", "item-price", "item-pre-market", "item-day", "item-week", "item-trimister", "item-year-high", "item-year-low"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="companiesList">
                   <div className="card-header">
