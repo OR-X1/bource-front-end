@@ -119,9 +119,10 @@ const Dashboard = () => {
                           </td>
                           <td>
 
-                            <div class="avatar avatar-xs align-middle me-2">
+                            {/* <div class="avatar avatar-xs align-middle me-2">
                               <img class="avatar-img rounded-circle" src="assets/img/avatars/teams/team-logo-1.jpg" alt="..."/>
-                            </div> <a class="item-name text-reset" href="team-overview.html">Launchday</a>
+                            </div>  */}
+                            <a class="item-name text-reset" href="team-overview.html">Launchday</a>
 
                           </td>
                           <td class="text-center">

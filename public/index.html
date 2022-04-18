@@ -18,18 +18,20 @@
     
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./assets/css/theme.bundle.css" id="stylesheetLight" />
-    <link rel="stylesheet" href="./assets/css/theme-dark.bundle.css" id="stylesheetDark" />
+    <!-- <link rel="stylesheet" href="./assets/css/theme-dark.bundle.css" id="stylesheetDark" /> -->
 
     <script async src="//jsfiddle.net/TradingView/yozeu6k1/embed/"></script>
-<style>
+<!-- <style>
     
   body { display: none; }
   
-  </style>
+  </style> -->
 
     <title>Bourse</title>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156446909-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "UA-156446909-1");</script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
   </head>
 
@@ -58,7 +60,14 @@
   );
   </script> -->
 
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
+<script>
+  $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
        <!-- Vendor JS -->
        <script src="./assets/js/vendor.bundle.js"></script>
        

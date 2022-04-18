@@ -42,7 +42,7 @@ const Watchlist = () => {
 
     function watchList(id) {
      
-      
+    
         setTimeout(() => {
         fetch('https://bourse.toolkech.com/api/liststock/'+ id)
         .then(async response =>{
@@ -51,6 +51,7 @@ const Watchlist = () => {
             
             setDataWatchlist(varr);
             setIsLoading(false);
+            fetchDataWatchList();
             console.log(varr);
         }).catch(err=>{
             setIsLoading(false);
@@ -186,6 +187,13 @@ const Watchlist = () => {
 
                   </div>
                 </div>
+                <div className="row align-items-center">
+                  <div className="col">
+                  <p className="text-secondary ms-2">
+                      Create new watchlist
+                    </p>
+                  </div>
+                </div>
              
               </div>
             </div>
@@ -213,7 +221,7 @@ const Watchlist = () => {
                     </div>
                   </div>
                   <div className="table">
-                    <table className="table table-sm table-hover table-nowrap card-table">
+                    <table id='myTable' className="table table-sm table-hover table-nowrap card-table">
                       <thead>
                         <tr>
                           <th>
