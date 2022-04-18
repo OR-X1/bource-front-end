@@ -307,22 +307,22 @@ var formatter = new Intl.NumberFormat('en-US', {
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.yearslow}</span>
+                            <span className="item-location">{item.day}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.yearslow}</span>
+                            <span className="item-location">{item.week}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.yearslow}</span>
+                            <span className="item-location">{item.month}</span>
 
                           </td>
                           <td className="text-center">
 
-                            <span className="item-location">{item.yearslow}</span>
+                            <span className="item-location">{item.trimister}</span>
 
                           </td>
                           <td className="text-center">
