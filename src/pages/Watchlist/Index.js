@@ -1,11 +1,40 @@
 
 
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
 import SideBar from "../../layouts/SideBar";
 import DataWatchlist from "../../components/DataWatchlist";
 import axios from 'axios';
+
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
+import moment from 'moment';
+
+import SearchBar from "material-ui-search-bar";
 
 
 const Watchlist = () => {
@@ -15,6 +44,7 @@ const Watchlist = () => {
 
     const [dataWatchlist, setDataWatchlist] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
+    const [watchlistInfo, setWatchlistInfo] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     
@@ -40,8 +70,28 @@ const Watchlist = () => {
       fetchDataWatchList()
   },[]);
 
+  // get one watchlist
+  const getOneWatchlist = (id) => {
+    console.log("id",id);
+    fetch(`https://bourse.toolkech.com/api/watchlist/${id}`)
+    .then(async response =>{
+      setWatchlistInfo(await response.json());
+      // setIsLoading(false);
+      console.log(watchlistInfo);
+    }).catch(err=>{
+      // setIsLoading(false);
+      console.log('faild to fetch');
+    })
+  }
+
+
+
+  const [rows , setRows ] = useState([]);
+
     function watchList(id) {
      
+      getOneWatchlist(id);
+      setRows([]);
     
         setTimeout(() => {
         fetch('https://bourse.toolkech.com/api/liststock/'+ id)
@@ -107,6 +157,280 @@ const Watchlist = () => {
 
       }
     
+
+
+
+      
+
+function createData(id, company, symbole, price, preMarket, day, week, month, trimister, years_hight, years_low) {
+  return {
+    id,
+    company, 
+    symbole,
+    price,
+    preMarket,
+    day,
+    week,
+    month,
+    trimister,
+    years_hight,
+    years_low      
+  };
+}
+
+
+
+  // const [rows, setRows] = useState([]);
+  useEffect(() => {
+    dataWatchlist.map(item => {
+      setRows(rows => [...rows, createData(item.id, item.name, item.symbole, item.price, item.premarket, item.day, item.week, item.month, item.trimister, item.yearslow, item.yearshigh)])
+    })
+  }, [dataWatchlist]);
+
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+// This method is created for cross-browser compatibility, if you don't
+// need to support IE11, you can use Array.prototype.sort() directly
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+const headCells = [
+  { id: 'company', numeric: true, disablePadding: false, label: 'Company' },
+  { id: 'price', numeric: false, disablePadding: false, label: 'Price' },
+  { id: 'pre_market', numeric: false, disablePadding: false, label: 'Pre market' },
+  { id: 'day', numeric: false, disablePadding: false, label: 'Day' },
+  { id: 'week', numeric: false, disablePadding: false, label: 'Week' },
+  { id: 'month', numeric: false, disablePadding: false, label: 'Month' },
+  { id: 'trimister', numeric: false, disablePadding: false, label: 'Trimister' },
+  { id: 'years_hight', numeric: false, disablePadding: false, label: 'Years hight' },
+  { id: 'years_low', numeric: false, disablePadding: false, label: 'Years low' },
+];
+
+function EnhancedTableHead(props) {
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+    props;
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{
+              'aria-label': 'select all desserts',
+            }}
+          />
+        </TableCell>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? 'left' : 'center'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+}
+
+EnhancedTableHead.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+  onRequestSort: PropTypes.func.isRequired,
+  onSelectAllClick: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  orderBy: PropTypes.string.isRequired,
+  rowCount: PropTypes.number.isRequired,
+};
+
+const EnhancedTableToolbar = (props) => {
+  const { numSelected } = props;
+
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(numSelected > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {numSelected > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {numSelected} selected
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          Nutrition
+        </Typography>
+      )}
+
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+    </Toolbar>
+  );
+};
+
+EnhancedTableToolbar.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+};
+
+
+
+const [order, setOrder] = React.useState('asc');
+const [orderBy, setOrderBy] = React.useState('name');
+const [selected, setSelected] = React.useState([]);
+const [page, setPage] = React.useState(0);
+const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+const handleRequestSort = (event, property) => {
+  const isAsc = orderBy === property && order === 'asc';
+  setOrder(isAsc ? 'desc' : 'asc');
+  setOrderBy(property);
+};
+
+const handleSelectAllClick = (event) => {
+  if (event.target.checked) {
+    const newSelecteds = rows.map((n) => n.company);
+    setSelected(newSelecteds);
+    return;
+  }
+  setSelected([]);
+};
+
+const handleClick = (event, name) => {
+  const selectedIndex = selected.indexOf(name);
+  let newSelected = [];
+
+  if (selectedIndex === -1) {
+    newSelected = newSelected.concat(selected, name);
+  } else if (selectedIndex === 0) {
+    newSelected = newSelected.concat(selected.slice(1));
+  } else if (selectedIndex === selected.length - 1) {
+    newSelected = newSelected.concat(selected.slice(0, -1));
+  } else if (selectedIndex > 0) {
+    newSelected = newSelected.concat(
+      selected.slice(0, selectedIndex),
+      selected.slice(selectedIndex + 1),
+    );
+  }
+
+  setSelected(newSelected);
+};
+
+const handleChangePage = (event, newPage) => {
+  setPage(newPage);
+};
+
+const handleChangeRowsPerPage = (event) => {
+  setRowsPerPage(parseInt(event.target.value, 10));
+  setPage(0);
+};
+
+
+const isSelected = (company) => selected.indexOf(company) !== -1;
+
+// Avoid a layout jump when reaching the last page with empty rows.
+const emptyRows =
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+
+
+  const [searched, setSearched] = useState("");
+
+  const requestSearch = (searchedVal) => {
+    console.log(searchedVal);
+    const filteredRows = rows.filter((row) => {
+      console.log(row.company);
+      return row.company.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+  setRows(filteredRows);
+};
+
+const cancelSearch = () => {
+  setSearched("");
+  requestSearch(searched);
+};
+
+
+
+
+
+var formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
+
+
+
+
    
 
     return (
@@ -190,8 +514,16 @@ const Watchlist = () => {
                 <div className="row align-items-center">
                   <div className="col">
                   <p className="text-secondary ms-2">
-                      Create new watchlist
+                      {watchlistInfo.description}
                     </p>
+                    <p className="text-dark ms-2">
+                      Note : 
+                    <span className="text-secondary ms-2">
+                      
+                      {watchlistInfo.note}
+                    </span>
+                      </p>
+                    
                   </div>
                 </div>
              
@@ -202,25 +534,137 @@ const Watchlist = () => {
               <div className="tab-pane fade show active" id="companiesListPane" role="tabpanel" aria-labelledby="companiesListTab">
 
                 <div className="card" data-list='{"valueNames": ["item-company", "item-price", "item-pre-market", "item-day", "item-week", "item-trimister", "item-year-high", "item-year-low"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="companiesList">
-                  <div className="card-header">
+                  <div className="card-header p-0">
                     <div className="row align-items-center">
                       <div className="col">
 
-                        <form>
-                          <div className="input-group input-group-flush input-group-merge input-group-reverse">
-                            <input className="form-control list-search" type="search" placeholder="Search" />
-                            <span className="input-group-text">
-                              <i className="fe fe-search"></i>
-                            </span>
-                          </div>
-                        </form>
+                      <SearchBar
+          value={searched}
+          onChange={(searchVal) => requestSearch(searchVal)}
+          onCancelSearch={() => cancelSearch()}
+        />
 
                       </div>
                      
                    
                     </div>
                   </div>
-                  <div className="table">
+
+
+
+                  <Box sx={{ width: '100%' }}>
+      <Paper sx={{ width: '100%', mb: 2 }}>
+        
+        <EnhancedTableToolbar numSelected={selected.length} />
+        
+        <TableContainer>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={'medium'}
+          >
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                 rows.slice().sort(getComparator(order, orderBy)) */}
+              {stableSort(rows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.company);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.company)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.company}
+                      selected={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            'aria-labelledby': labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                        align="left"
+                      >
+                        <Link to={`/${row.symbole}`} className="item-name text-reset">{row.company}</Link>
+                        </TableCell>
+                      <TableCell align="center">{formatter.format(row.price)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.preMarket)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.day)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.week)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.month)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.trimister)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.years_hight)}</TableCell>
+                      <TableCell align="center">{formatter.format(row.years_low)}</TableCell>
+                      
+
+                      <TableCell align="center">
+                        
+                      <div className="dropdown">
+                              <a className="dropdown-ellipses dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i className="fe fe-more-horizontal"></i>
+                              </a>
+                              <div className="dropdown-menu dropdown-menu-end">
+                                <a href="#!" className="dropdown-item">
+                                  Action
+                                </a>
+                                <a href="#!" className="dropdown-item">
+                                  Another action
+                                </a>
+                                <a href="#!" className="dropdown-item">
+                                  Something else here
+                                </a>
+                              </div>
+                            </div>
+
+                          
+                      </TableCell>
+
+
+                    </TableRow>
+                  );
+                })}
+              
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </Box>
+
+
+
+
+    
+                  {/* <div className="table">
                     <table id='myTable' className="table table-sm table-hover table-nowrap card-table">
                       <thead>
                         <tr>
@@ -288,7 +732,7 @@ const Watchlist = () => {
                       </li>
                     </ul>
 
-                  </div>
+                  </div> */}
                 </div>
 
               </div>

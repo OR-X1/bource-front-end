@@ -9,13 +9,17 @@ const SideBar = () => {
 
 
     return (
-<div className="navbar navbar-vertical fixed-start navbar-expand-md bg-white">
-        <nav className="navbar navbar-vertical fixed-start navbar-expand-md bg-white border-0 shadow" id="sidebar">
+<div className="navbar navbar-vertical fixed-start navbar-expand-md  bg-white">
+        <nav className="navbar navbar-vertical w-100 fixed-start navbar-expand-md bg-white border-0 shadow" id="sidebar">
       <div className="container-fluid align-items-center">
     
         {/* <!-- Toggler --> */}
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          </span>
         </button>
     
         {/* <!-- Brand --> */}

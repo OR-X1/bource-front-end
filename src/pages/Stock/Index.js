@@ -287,7 +287,7 @@ var formatter = new Intl.NumberFormat('en-US', {
                             </div>
 
                           </td>
-                          <td>
+                          <td className="table-width">
 
                             {/* <div className="avatar avatar-xs align-middle me-2">
                               <img className="avatar-img rounded-circle" src={item.logo} alt="..." />
