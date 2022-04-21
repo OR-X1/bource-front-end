@@ -109,10 +109,10 @@ const fetchDataWatchList = () => {
       const varr = await response.json()
       
       setWatchlist(varr);
-      setIsLoading(false);
+      // setIsLoading(false);
       console.log(varr);
   }).catch(err=>{
-      setIsLoading(false);
+      // setIsLoading(false);
       console.log('faild to fetch');
   })
 

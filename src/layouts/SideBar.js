@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
+
 
 
 
@@ -26,7 +27,7 @@ const SideBar = () => {
         <a className="navbar-brand" href="index.html">
           <img src="/logo.png" className="navbar-brand-img mx-auto" alt="Brand Bourse" />
         </a>
-    
+       
     
         <div className="collapse navbar-collapse " id="sidebarCollapse">
     
@@ -34,12 +35,16 @@ const SideBar = () => {
           {/* <!-- Navigation --> */}
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link text-secondary" href="widgets.html">
+              <a className="nav-link text-secondary" href="#">
                 <i className="fe fe-bell"></i> Alert
               </a>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-link text-secondary ">
+              <Link to="/" 
+                className={({ isActive }) =>
+                  isActive ? 'nav-link text-secondary active' : 'nav-link text-secondary '
+              }
+              >
                 <i className="fe fe-trending-up"></i> Stock
               </Link>
             </li>
@@ -51,12 +56,19 @@ const SideBar = () => {
     
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/stockmanager" className="nav-link text-secondary active" href="widgets.html">
+              <Link to="/stockmanager" 
+              className={({ isActive }) =>
+                  isActive ? 'nav-link text-secondary active' : 'nav-link text-secondary '
+              }>
                 <i className="fe fe-briefcase"></i> Stock Manager
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/watchlist" className="nav-link text-secondary" href="widgets.html">
+              <Link to="/watchlist" 
+                className={({ isActive }) =>
+                    isActive ? 'nav-link text-secondary active' : 'nav-link text-secondary '
+                }
+              >
                 <i className="fe fe-eye"></i> Watchlist
               </Link>
             </li>
@@ -67,12 +79,12 @@ const SideBar = () => {
     
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link text-secondary " href="widgets.html">
+              <a className="nav-link text-secondary " href="#">
                 <i className="fe fe-settings"></i> Parametre
               </a>
             </li>
             {/* <li className="nav-item">
-              <a className="nav-link text-secondary " href="widgets.html">
+              <a className="nav-link text-secondary " href="#">
                 <i className="fe fe-more-horizontal"></i> More
               </a>
             </li> */}

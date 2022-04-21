@@ -46,6 +46,7 @@ const Watchlist = () => {
     const [watchlist, setWatchlist] = useState([]);
     const [watchlistInfo, setWatchlistInfo] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingWatchlist, setIsLoadingWatchlist] = useState(true);
 
     
     const fetchDataWatchList = () => {
@@ -56,10 +57,12 @@ const Watchlist = () => {
             const varr = await response.json()
             
             setWatchlist(varr);
-            setIsLoading(false);
+            setIsLoadingWatchlist(false);
             console.log(varr);
+            // watchList(varr[1].id);
+            getOneWatchlist(varr[0].id);
         }).catch(err=>{
-            setIsLoading(false);
+            setIsLoadingWatchlist(false);
             console.log('faild to fetch');
         })
 
@@ -86,10 +89,13 @@ const Watchlist = () => {
 
 
 
+
   const [rows , setRows ] = useState([]);
 
     function watchList(id) {
      
+      setIsLoading(true);
+
       getOneWatchlist(id);
       setRows([]);
     
@@ -316,11 +322,11 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {/* Nutrition */}
         </Typography>
       )}
 
-      {numSelected > 0 ? (
+      {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
             <DeleteIcon />
@@ -332,7 +338,7 @@ const EnhancedTableToolbar = (props) => {
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
     </Toolbar>
   );
 };
@@ -459,7 +465,7 @@ var formatter = new Intl.NumberFormat('en-US', {
                 <div className="row align-items-center">
                   <div className="col">
 
-                 {isLoading && <tr className="text-center"><td colspan="11" className="py-5"><p >Loading ...</p></td></tr>}
+                 {isLoadingWatchlist && <tr className="text-center"><td colspan="11" className="py-5"><p >Loading ...</p></td></tr>}
                      {watchlist.map((item)=>(
                   <p onClick={() => watchList(item.id)} key={item.id} className="btn text-secondary ms-2 py-0 p-3 border border-1 rounded-pill ">
                       {item.title}
@@ -574,6 +580,7 @@ var formatter = new Intl.NumberFormat('en-US', {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
+                {isLoading && <tr className="text-center"><td colspan="11" className="py-5"><p ><Spinner animation="border" /></p></td></tr>}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
@@ -582,13 +589,13 @@ var formatter = new Intl.NumberFormat('en-US', {
 
                   return (
                     <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.company)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.company}
-                      selected={isItemSelected}
+                    hover
+                    onClick={(event) => handleClick(event, row.company)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.company}
+                    selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
