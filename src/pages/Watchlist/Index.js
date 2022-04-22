@@ -34,7 +34,11 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import moment from 'moment';
 
+import MaterialTable from 'material-table'
+
 import SearchBar from "material-ui-search-bar";
+
+import { CsvBuilder } from 'filefy';
 
 
 const Watchlist = () => {
@@ -103,8 +107,9 @@ const Watchlist = () => {
         fetch('https://bourse.toolkech.com/api/liststock/'+ id)
         .then(async response =>{
             
-            const varr = await response.json()
-            
+          const varr = await response.json()
+          
+            console.log(varr);
             setDataWatchlist(varr);
             setIsLoading(false);
             fetchDataWatchList();
@@ -435,6 +440,35 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 
 
+// export to CSV
+const exportToCsv = () => {
+
+  var csvBuilder = new CsvBuilder("watchlist.csv")
+  .setColumns(headCells.map(col=>col.label))
+  .addRows(rows.map(row=>{
+    return headCells.map(col=>row[col.id])
+    }))
+  .exportFile();
+
+  // var csv = [];
+  // var csvRow = [];
+  // for (var i = 0; i < rows.length; i++) {
+  //   for (var key in rows[i]) {
+  //     csvRow.push(rows[i][key]);
+  //   }
+  //   csv.push(csvRow.join(','));
+  //   csvRow = [];
+  // }
+  // var csvString = csv.join('\r\n');
+  // var a = document.createElement('a');
+  // a.href =
+  //   'data:attachment/csv,' +
+  //   encodeURIComponent(csvString);
+  // a.target = '_blank';
+  // a.download = filename;
+  // document.body.appendChild(a);
+  // a.click();
+};
 
 
    
@@ -476,6 +510,9 @@ var formatter = new Intl.NumberFormat('en-US', {
 
                     <p className="btn text-secondary ms-2"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
                       Create new watchlist
+                    </p>
+                    <p className="btn btn-gray-theme ms-2" onClick={() => exportToCsv()} >
+                      Save Data
                     </p>
                     
 
@@ -556,6 +593,11 @@ var formatter = new Intl.NumberFormat('en-US', {
                     </div>
                   </div>
 
+                  {/* <MaterialTable
+                    title="Employee Data"
+                    data={rows}
+                    columns={headCells}
+                  /> */}
 
 
                   <Box sx={{ width: '100%' }}>
@@ -581,6 +623,7 @@ var formatter = new Intl.NumberFormat('en-US', {
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                 {isLoading && <tr className="text-center"><td colspan="11" className="py-5"><p ><Spinner animation="border" /></p></td></tr>}
+                
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {

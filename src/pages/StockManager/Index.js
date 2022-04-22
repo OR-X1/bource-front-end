@@ -37,7 +37,7 @@ import moment from 'moment';
 import SearchBar from "material-ui-search-bar";
 
 
-
+import { CsvBuilder } from 'filefy';
 
 
 
@@ -552,6 +552,19 @@ var formatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
 
+
+// export to CSV
+const exportToCsv = () => {
+
+  var csvBuilder = new CsvBuilder("Stock Manager.csv")
+  .setColumns(headCells.map(col=>col.label))
+  .addRows(rows.map(row=>{
+    return headCells.map(col=>row[col.id])
+    }))
+  .exportFile();
+};
+
+
     return (
 <div className="flex h-full">
     
@@ -578,6 +591,10 @@ var formatter = new Intl.NumberFormat('en-US', {
                       
                     <p className="btn text-secondary ms-2"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
                       Add new Operation
+                    </p>
+
+                    <p className="btn btn-gray-theme ms-2" onClick={() => exportToCsv()} >
+                      Save Data
                     </p>
 
                     <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

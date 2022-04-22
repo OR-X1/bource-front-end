@@ -201,7 +201,7 @@ var formatter = new Intl.NumberFormat('en-US', {
                       Add to Watchlist
                     </a>
 
-                    <a href="#!" className="btn btn-gray-theme ms-2">
+                    <a href="#!" className="btn btn-gray-theme ms-2" >
                       Save Data
                     </a>
 
