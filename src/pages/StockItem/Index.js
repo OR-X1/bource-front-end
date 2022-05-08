@@ -34,12 +34,18 @@ const StockItem = () => {
 
   useEffect( () => {
     fetch('https://newsapi.org/v2/everything?q='+symbole+'&from=2022-04-17&sortBy=popularity&apiKey=bf1bf708d8d440b494f4aec9a13f4619')
-    .then(response => response.json())
-    .then(data => {
-      console.log("google news  : "+data.articles);
-      setDataNews(data.articles);
-      setIsLoadingNews(false);
-    })
+        .then(async response =>{
+            
+            const varr = await response.json()
+            
+            setDataNews(varr.articles);
+            setIsLoadingNews(false);
+            console.log(varr.articles);
+
+        }).catch(err=>{
+          setIsLoadingNews(false);
+            console.log('faild to fetch news');
+        })
   },[]);
 
   const fetchData = () => {
