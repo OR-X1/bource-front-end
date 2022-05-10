@@ -30,6 +30,7 @@ const StockItem = () => {
       fetchData()
   },[]);
   console.log("symbole  : "+ symbole);
+  
 
 
   useEffect( () => {
@@ -51,7 +52,7 @@ const StockItem = () => {
   const fetchData = () => {
         setTimeout(() => {
         // fetch(`${process.env.REACT_APP_API_URL}manager/getAllmanagers`)
-        fetch(`https://bourse.toolkech.com/api/stock/${symbole}`)
+        fetch(`http://127.0.0.1:8000/api/stock/${symbole}`)
         .then(async response =>{
             
             const varr = await response.json()
@@ -84,12 +85,12 @@ const StockItem = () => {
             operation: operation,
             size: size,
             open: open,
-            user_id: 2
+            user_id: JSON.parse(localStorage.getItem('auth_user')).id
             }
         
         console.log(form_data);
           
-        axios.post('https://bourse.toolkech.com/api/stockmanager',form_data
+        axios.post('http://127.0.0.1:8000/api/stockmanager',form_data
             ).then(response => {
                 if(response){
                     console.log('good')
@@ -128,7 +129,7 @@ const StockItem = () => {
     
     console.log(form_data);
       
-    axios.post(`https://bourse.toolkech.com/api/liststock`,form_data
+    axios.post(`http://127.0.0.1:8000/api/liststock`,form_data
         ).then(response => {
             if(response){
                 console.log('good')
@@ -163,7 +164,7 @@ const [watchlists, setWatchlist] = useState([]);
 
 const fetchDataWatchList = () => {
   setTimeout(() => {
-  fetch('https://bourse.toolkech.com/api/watchlist')
+  fetch('http://127.0.0.1:8000/api/watchlist')
   .then(async response =>{
       
       const varr = await response.json()
@@ -208,7 +209,7 @@ const handleCraeteWatchlist = e => {
   console.log(form_data);
   // setTimeout(() => {
     
-  axios.post('https://bourse.toolkech.com/api/watchlist',form_data
+  axios.post('http://127.0.0.1:8000/api/watchlist',form_data
       ).then(response => {
           // console.log(response);
           if(response){
@@ -239,7 +240,7 @@ var formatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
   //   useEffect( ()=>{
-  //     fetch('https://bourse.toolkech.com/api/watchlist')
+  //     fetch('http://127.0.0.1:8000/api/watchlist')
   //     .then(response =>response.json())
   //     .then(json => {
   //         const varr =json.data

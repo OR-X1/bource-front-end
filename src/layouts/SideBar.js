@@ -1,13 +1,25 @@
 
 import { useEffect, useState } from 'react';
-import { NavLink as Link } from "react-router-dom";
+import {  useNavigate, NavLink as Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 
 const SideBar = () => {
 
-
+  let navigate= useNavigate();
+  const handleLogout = (e) =>{
+      e.preventDefault();
+      axios.post('http://localhost:8000/api/logout').then(response => {
+          localStorage.removeItem('auth_token')
+          localStorage.removeItem('auth_user')
+          navigate('/login')
+          }).catch(error =>{
+              console.log('error');  
+          })
+    
+  }
 
     return (
 <div className="navbar navbar-vertical fixed-start navbar-expand-md  bg-white">
@@ -91,7 +103,23 @@ const SideBar = () => {
 
           </ul>
     
-           {/* <div className="mt-auto"></div>  */}
+           <div className="mt-auto">
+           <hr className="navbar-divider my-3"></hr>
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <a className="nav-link text-danger " href="#" onClick={handleLogout}>
+                    <i className="fe fe-log-out"></i> Logout
+                  </a>
+                </li>
+                {/* <li className="nav-item">
+                  <a className="nav-link text-secondary " href="#">
+                    <i className="fe fe-more-horizontal"></i> More
+                  </a>
+                </li> */}
+
+              </ul>
+
+            </div> 
     
     
         </div> 
