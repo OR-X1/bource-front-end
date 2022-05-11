@@ -11,7 +11,7 @@ const SideBar = () => {
   let navigate= useNavigate();
   const handleLogout = (e) =>{
       e.preventDefault();
-      axios.post('http://localhost:8000/api/logout').then(response => {
+      axios.post('https://bourse.toolkech.com/api/logout').then(response => {
           localStorage.removeItem('auth_token')
           localStorage.removeItem('auth_user')
           navigate('/login')

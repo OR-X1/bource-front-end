@@ -25,11 +25,11 @@ const Register = () => {
 
         axios.defaults.withCredentials = true
         // CSRF COOKIE
-        axios.get("http://localhost:8000/sanctum/csrf-cookie").then(
+        axios.get("https://bourse.toolkech.com/sanctum/csrf-cookie").then(
           (response) => {
            
             // SIGNUP / REGISTER
-            axios.post("http://localhost:8000/api/register", {
+            axios.post("https://bourse.toolkech.com/api/register", {
                 name: name_en,
                 password: password,
                 email: email,
