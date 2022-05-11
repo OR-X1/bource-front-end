@@ -59,7 +59,7 @@ const Stock = () => {
       
         setTimeout(() => {
         // fetch(`${process.env.REACT_APP_API_URL}manager/getAllmanagers`)
-        fetch('http://127.0.0.1:8000/api/stock')
+        fetch('https://bourse.toolkech.com/api/stock')
         .then(async response =>{
             
             const varr = await response.json()
@@ -86,7 +86,7 @@ console.log(searchSymbole);
         setRows([]);
 
           // fetch(`${process.env.REACT_APP_API_URL}manager/getAllmanagers`)
-          fetch('http://127.0.0.1:8000/api/search/'+searchSymbole)
+          fetch('https://bourse.toolkech.com/api/search/'+searchSymbole)
           .then(async response =>{
               
               const varr = await response.json()
@@ -104,7 +104,7 @@ console.log(searchSymbole);
   
   }
   //   useEffect( ()=>{
-  //     fetch('http://127.0.0.1:8000/api/watchlist')
+  //     fetch('https://bourse.toolkech.com/api/watchlist')
   //     .then(response =>response.json())
   //     .then(json => {
   //         const varr =json.data
@@ -134,7 +134,7 @@ console.log(searchSymbole);
     
     console.log(form_data);
       
-    axios.post(`http://127.0.0.1:8000/api/liststock`,form_data
+    axios.post(`https://bourse.toolkech.com/api/liststock`,form_data
         ).then(response => {
             if(response){
                 console.log('good')
@@ -171,7 +171,7 @@ const [watchlists, setWatchlist] = useState([]);
 
 const fetchDataWatchList = () => {
   setTimeout(() => {
-  fetch('http://127.0.0.1:8000/api/watchlist')
+  fetch('https://bourse.toolkech.com/api/watchlist')
   .then(async response =>{
       
       const varr = await response.json()
@@ -214,7 +214,7 @@ const handleCraeteWatchlist = e => {
   console.log(form_data);
   // setTimeout(() => {
     
-  axios.post('http://127.0.0.1:8000/api/watchlist',form_data
+  axios.post('https://bourse.toolkech.com/api/watchlist',form_data
       ).then(response => {
           // console.log(response);
           if(response){

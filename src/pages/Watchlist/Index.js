@@ -55,7 +55,7 @@ const Watchlist = () => {
     
     const fetchDataWatchList = () => {
         setTimeout(() => {
-        fetch('http://127.0.0.1:8000/api/watchlist/'+JSON.parse(localStorage.getItem('auth_user')).id)
+        fetch('https://bourse.toolkech.com/api/watchlist/'+JSON.parse(localStorage.getItem('auth_user')).id)
         .then(async response =>{
             
             const varr = await response.json()
@@ -80,7 +80,7 @@ const Watchlist = () => {
   // get one watchlist
   const getOneWatchlist = (id) => {
     console.log("id",id);
-    fetch(`http://127.0.0.1:8000/api/watchlistgetone/${id}`)
+    fetch(`https://bourse.toolkech.com/api/watchlistgetone/${id}`)
     .then(async response =>{
       setWatchlistInfo(await response.json());
       // setIsLoading(false);
@@ -104,7 +104,7 @@ const Watchlist = () => {
       setRows([]);
     
         setTimeout(() => {
-        fetch('http://127.0.0.1:8000/api/liststock/'+ id)
+        fetch('https://bourse.toolkech.com/api/liststock/'+ id)
         .then(async response =>{
             
           const varr = await response.json()
@@ -146,7 +146,7 @@ const Watchlist = () => {
           console.log(form_data);
           // setTimeout(() => {
             
-          axios.post('http://127.0.0.1:8000/api/watchlist',form_data
+          axios.post('https://bourse.toolkech.com/api/watchlist',form_data
               ).then(response => {
                   // console.log(response);
                   if(response){
